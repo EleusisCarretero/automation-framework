@@ -1,0 +1,9 @@
+<suite name="Suite">
+  <test name="TestLoginOnly">
+    <parameter name="url" value="https://automationexercise.com/login"/>
+    <parameter name="signupurl" value="https://automationexercise.com/signup"/>
+    <classes>
+      	<class name="tests.TestLogin"/>
+    </classes>
+  </test>
+</suite>
