@@ -9,7 +9,7 @@ public class TestDBConnexion {
 		String pssw = "Hellow";
 		DataBaseReader dbr = new DataBaseReader(url, user, pssw);
 		
-		ResultSet re = dbr.exceuteQuery("SELECT * FROM ");
+		
 
 	}
 
