@@ -54,17 +54,28 @@ public class TestLogin extends BaseTest {
 
 	}
 	
+	List<Map<InputElement, String>> buildInputMap(InputElement[] elements, String[] values) {
+	    List<Map<InputElement, String>> list = new ArrayList<>();
+	    for (int i = 0; i < elements.length; i++) {
+	        list.add(Map.of(elements[i], values[i]));
+	    }
+	    return list;
+	}
+
+	
 	void verifylogin(String email, String password) {
-		List<Map <InputElement, String>> inputMapList = new ArrayList<>();
-		inputMapList.add(Map.of(this.page.loginemailInput(), email));
-		inputMapList.add(Map.of(this.page.loginpasswordInput(), password));
+		List<Map<InputElement, String>> inputMapList = buildInputMap(
+			    new InputElement[] { this.page.loginemailInput(), this.page.loginpasswordInput() },
+			    new String[] { email, password }
+			);
 		verifyFillAndClick(inputMapList, this.page.loginBtn());
 	}
 	
 	void verifylogin(String email, String password, String exptectedErroMsg) {
-		List<Map <InputElement, String>> inputMapList = new ArrayList<>();
-		inputMapList.add(Map.of(this.page.loginemailInput(), email));
-		inputMapList.add(Map.of(this.page.loginpasswordInput(), password));
+		List<Map<InputElement, String>> inputMapList = buildInputMap(
+			    new InputElement[] { this.page.loginemailInput(), this.page.loginpasswordInput() },
+			    new String[] { email, password }
+			);
 		verifyFillAndClick(inputMapList, this.page.loginBtn());
 		// verify Error msg
 		String actualErrorMsg = this.page.errorMsg();
@@ -75,9 +86,10 @@ public class TestLogin extends BaseTest {
 	void stepVerifysignup(String name, String email, String expecteTitle) {
 		// 1. Enter credentials
 		stepMsg("Verify the sigup fields has fill successfully and reaching siguo url");
-		List<Map <InputElement, String>> inputMapList = new ArrayList<>();
-		inputMapList.add(Map.of(this.page.newUserName(), name));
-		inputMapList.add(Map.of(this.page.newUserEmailAdds(), email));
+		List<Map<InputElement, String>> inputMapList = buildInputMap(
+			    new InputElement[] { this.page.newUserName(), this.page.newUserEmailAdds() },
+			    new String[] { email, email }
+			);
 		// 2. Click singup button
 		verifyFillAndClick(inputMapList, this.page.signupBtn());
 		awaiting(1);
@@ -111,7 +123,7 @@ public class TestLogin extends BaseTest {
 		checkInputFill(this.siguppage.nameInput(), username);
 	    checkInputFill(this.siguppage.emailInput(), email);
 	    verifyInputFill(this.siguppage.passwordInput(), password, true);
-	    if (nametitle == "Mr") {
+	    if ("Mr".equals(nametitle)) {
 	    	verifyRadioBtnChecked(this.siguppage.mrRadioBtn());
 	    }
 	    else {
@@ -200,12 +212,12 @@ public class TestLogin extends BaseTest {
 		stepVerifyDeleteAccount(expectedAccDeltitle);
 	}
 
-	//@Test
+	@Test
 	void testLoginInvalidUser() throws InterruptedException {
 		String email = "Pedrio@mail.com";
 		String password ="123unodos";
 		String errorMsg = "Your email or password is incorrect!";
-		verifylogin(email, password);
+		verifylogin(email, password, errorMsg);
 	}
 	
 
