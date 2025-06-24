@@ -84,23 +84,25 @@ public class BaseTest {
 	@SuppressWarnings("unchecked")
 	void verifyInputFill(InputElement inputElement, String input, boolean clean) {
 		// 1.- Set the value
+		String errorMessage = "While trying to write into element " + inputElement.name() + " an excpetion has happend";
 		stepMsg("Verify input element" + inputElement.name() + "has been filled succesfully");
 		this.assertManager.assertNotThrowsOfType(() -> {
 			inputElement.write(input, clean);
-		}, NoSuchElementException.class, TimeoutException.class);
+		},errorMessage,
+		NoSuchElementException.class, TimeoutException.class);
 		// 2.- Verify content of input element
 		checkInputFill(inputElement, input);
 	}
 	
+	@SuppressWarnings("unchecked")
 	void verifySimpleClick(Button buttonElement) {
 		// Try to execute normal click
+		String errorMessage = "While trying to click on element" + buttonElement.name() + " an expcetion has happend";
 		stepMsg("Verify simple click on " + buttonElement.name() + "has been exceuted successfully");
-		try {
+		this.assertManager.assertNotThrowsOfType(() -> {
 			buttonElement.click();
-		}
-		catch(NoSuchElementException | StaleElementReferenceException | TimeoutException | ElementClickInterceptedException e) {
-			Assert.fail("While trying to click on element" + buttonElement.name() + "An expcetion has happend", e);
-		}
+		},errorMessage,
+		NoSuchElementException.class, StaleElementReferenceException.class, TimeoutException.class, ElementClickInterceptedException.class);
 	}
 	
 	void verifyFillAndClick(List<Map <InputElement, String>> inputMapList, Button buttonElement) {
@@ -116,36 +118,33 @@ public class BaseTest {
 		verifySimpleClick(buttonElement);
 	}
 	
+	@SuppressWarnings("unchecked")
 	void verifyDropDownSet(DropDownElement dropDownElement, String expectedValue, boolean byVisibleText) {
 		// 1 Set dropdown value
+		String errorMessage = "While trying to set dropdown element" + dropDownElement.name() + "An expcetion has happend";
 		stepMsg("Verify that the " + dropDownElement.name() + "DropDown element has been set succesfully");
-		try {
+		this.assertManager.assertNotThrowsOfType(() -> {
 			dropDownElement.set(expectedValue, byVisibleText);
-			awaiting(1);
-		}
-		catch(NoSuchElementException e) {
-			Assert.fail("While trying to set dropdown element" + dropDownElement.name() + "An expcetion has happend", e);
-		}
+		},errorMessage,
+		NoSuchElementException.class);
+		awaiting(1);
 		// 2 read the actual value
 		String currentValue = dropDownElement.get(byVisibleText);
-		Assert.assertEquals(
-				currentValue,
-				expectedValue,
-				"The actual value " + currentValue + "is not equals to " + expectedValue);
+		this.assertManager.checkEqualsTo(currentValue, expectedValue);
 	}
 	
+	@SuppressWarnings("unchecked")
 	void verifyDropDownSet(DropDownElement dropDownElement, String expectedValue) {
 		// 1 Set dropdown value
+		String errorMessage = "While trying to set dropdown element" + dropDownElement.name() + "an expcetion has happend";
 		stepMsg("Verify that the " + dropDownElement.name() + "DropDown element has been set successfully");
-		try {
+		this.assertManager.assertNotThrowsOfType(() -> {
 			dropDownElement.set(Integer.parseInt(expectedValue));
-		}
-		catch(NoSuchElementException e) {
-			Assert.fail("While trying to set dropdown element" + dropDownElement.name() + "An expcetion has happend", e);
-		}
+		},errorMessage,
+		NoSuchElementException.class);
 		// 2 read the actual value
 		String currentValue = dropDownElement.get(false);
-		Assert.assertEquals(currentValue, expectedValue);
+		this.assertManager.checkEqualsTo(currentValue, expectedValue);
 	}
 	
 	void verifyMultipleDropDownSet(List<DropDownElement> dropDownList, List<String> birthdayFields, List<Boolean> visibleFlags) {
@@ -163,7 +162,7 @@ public class BaseTest {
 	
 	void checkTextElemtValue(TextElement textElement, String expectedValue) {
 		stepMsg("Verify that the " + textElement.name() + "Text element has correct value");
-		Assert.assertEquals(textElement.text(), expectedValue);
+		this.assertManager.checkEqualsTo(textElement.text(), expectedValue);
 	}
 	
 	void verifyRadioBtnChecked(RadioButton radioElement) {
@@ -174,12 +173,12 @@ public class BaseTest {
 			radioElement.check();
 			awaiting(1);
 		}
-		Assert.assertEquals(radioElement.isChecked(), true);
+		this.assertManager.checkIsTrue(radioElement.isChecked());
 	}
 	
 	void checkRadioBtnUnChecked(RadioButton radioElement) {
 		stepMsg("Verify that the " + radioElement.name() + "is uncheck in the expected status");
-		Assert.assertEquals(radioElement.isChecked(), false);
+		this.assertManager.checkIsFalse(radioElement.isChecked());
 	}
 	
 	void verifyCheckboxButton(CheckboxButton checkboxButtonElement, boolean expectedStatus) {
@@ -190,13 +189,13 @@ public class BaseTest {
 			checkboxButtonElement.check();
 			awaiting(1);
 		}
-		Assert.assertEquals(checkboxButtonElement.isChecked(), expectedStatus);
+		this.assertManager.checkIsTrue(checkboxButtonElement.isChecked());
 	}
 	
 	public void checkUrl(String expectedUrl, boolean isEquals) {
 		String currentURl = switchContext(0);
-		if (isEquals) {Assert.assertEquals(currentURl, expectedUrl);}
-		else {Assert.assertNotEquals(currentURl, expectedUrl);}
+		if (isEquals) {this.assertManager.checkEqualsTo(currentURl, expectedUrl);}
+		else {this.assertManager.CheckNotEqualsTo(currentURl, expectedUrl);}
 	}
 	
 	void stepVerifyPageOpenAfterClickBtn(Button button, BasePage page) {
