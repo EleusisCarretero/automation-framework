@@ -29,13 +29,13 @@ public class BaseTest {
 	private BasePage page;
 	protected AssertManager assertManager;
 	
-	boolean setup(BasePage page) {
+	protected boolean setup(BasePage page) {
 		this.page = page;
 		this.assertManager = new AssertManager();
 		return this.page.launchPage();
 	}
 	
-	boolean teardown() {
+	protected boolean teardown() {
 		return page.quitPage();
 	}
 	
@@ -43,7 +43,7 @@ public class BaseTest {
 		stepNum ++;
 		return stepNum;
 	}
-	void stepMsg(String stepMsg) {
+	protected void stepMsg(String stepMsg) {
 		LOGGER.info("STEP " + stepNum() + ": " + stepMsg);
 	}
 	
@@ -68,12 +68,13 @@ public class BaseTest {
 		}
 	}
 	
-	void checkInputFill(InputElement inputElement, String input) {
+	protected void checkInputFill(InputElement inputElement, String input) {
 		stepMsg("Check input element" + inputElement.name() + "has the expected value");
 		this.assertManager.checkEqualsTo(inputElement.text(), input);
 	}
 	
 	@SuppressWarnings("unchecked")
+	protected
 	void verifyInputFill(InputElement inputElement, String input, boolean clean) {
 		// 1.- Set the value
 		String errorMessage = "While trying to write into element " + inputElement.name() + " an excpetion has happend";
@@ -97,7 +98,7 @@ public class BaseTest {
 		NoSuchElementException.class, StaleElementReferenceException.class, TimeoutException.class, ElementClickInterceptedException.class);
 	}
 	
-	void verifyFillAndClick(List<Map <InputElement, String>> inputMapList, Button buttonElement) {
+	protected void verifyFillAndClick(List<Map <InputElement, String>> inputMapList, Button buttonElement) {
 		// 1. fill all the input elements and validate they have been correctly executed
 		stepMsg("Verify the whole input elements list is filled and button click executede successfully");
 		for (Map <InputElement, String> inputMap: inputMapList) {
@@ -111,6 +112,7 @@ public class BaseTest {
 	}
 	
 	@SuppressWarnings("unchecked")
+	protected
 	void verifyDropDownSet(DropDownElement dropDownElement, String expectedValue, boolean byVisibleText) {
 		// 1 Set dropdown value
 		String errorMessage = "While trying to set dropdown element" + dropDownElement.name() + "An expcetion has happend";
@@ -139,7 +141,7 @@ public class BaseTest {
 		this.assertManager.checkEqualsTo(currentValue, expectedValue);
 	}
 	
-	void verifyMultipleDropDownSet(List<DropDownElement> dropDownList, List<String> birthdayFields, List<Boolean> visibleFlags) {
+	protected void verifyMultipleDropDownSet(List<DropDownElement> dropDownList, List<String> birthdayFields, List<Boolean> visibleFlags) {
 		for (int i = 0; i < dropDownList.size(); i++) {
 		    verifyDropDownSet(dropDownList.get(i), birthdayFields.get(i), visibleFlags.get(i));
 		    awaiting(1);
@@ -152,12 +154,12 @@ public class BaseTest {
 		}
 	}
 	
-	void checkTextElemtValue(TextElement textElement, String expectedValue) {
+	protected void checkTextElemtValue(TextElement textElement, String expectedValue) {
 		stepMsg("Verify that the " + textElement.name() + "Text element has correct value");
 		this.assertManager.checkEqualsTo(textElement.text(), expectedValue);
 	}
 	
-	void verifyRadioBtnChecked(RadioButton radioElement) {
+	protected void verifyRadioBtnChecked(RadioButton radioElement) {
 		stepMsg("Verify that the " + radioElement.name() + "is checked in the expected status");
 		boolean currentStatus = radioElement.isChecked();
 		if(!currentStatus) {
@@ -173,7 +175,7 @@ public class BaseTest {
 		this.assertManager.checkIsFalse(radioElement.isChecked());
 	}
 	
-	void verifyCheckboxButton(CheckboxButton checkboxButtonElement, boolean expectedStatus) {
+	protected void verifyCheckboxButton(CheckboxButton checkboxButtonElement, boolean expectedStatus) {
 		stepMsg("Verify that the " + checkboxButtonElement.name() + "is check as its expected status");
 		boolean currentStatus = checkboxButtonElement.isChecked();
 		if(currentStatus != expectedStatus) {
@@ -190,7 +192,7 @@ public class BaseTest {
 		else {this.assertManager.CheckNotEqualsTo(currentURl, expectedUrl);}
 	}
 	
-	void stepVerifyPageOpenAfterClickBtn(Button button, BasePage page) {
+	protected void stepVerifyPageOpenAfterClickBtn(Button button, BasePage page) {
 		// 1 get current url
 		String url = switchContext(0);
 		// 2. Click button
