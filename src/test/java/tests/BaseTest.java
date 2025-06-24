@@ -17,6 +17,7 @@ import ui.DropDownElement;
 import ui.InputElement;
 import ui.RadioButton;
 import ui.TextElement;
+import ui.Upload;
 import utilities.ApiConnecter;
 import utilities.AssertManager;
 
@@ -47,7 +48,7 @@ public class BaseTest {
 		LOGGER.info("STEP " + stepNum() + ": " + stepMsg);
 	}
 	
-	String getNeededHdl(int position) {
+	protected String getNeededHdl(int position) {
 		Set<String> handlers = this.driver.getWindowHandles();
 		String[] hdlArray = handlers.toArray(new String[0]);
 		return hdlArray[position];
@@ -217,6 +218,18 @@ public class BaseTest {
 			e.printStackTrace();
 		}
 		return apiCon.filterFields(response, fields);
+	}
+	
+	public void StepCheckFileUploaded(Upload upload, String filepath) {
+		boolean status = false;
+		stepMsg("Check the file " + filepath + " has been correctly updated");
+		try {
+			status = upload.uploadFile(filepath);
+		}
+		catch(Exception e) {
+			LOGGER.severe("Unable to updload file: " + filepath + e.getMessage());
+		}
+		this.assertManager.checkIsTrue(status);
 	}
 	
 
