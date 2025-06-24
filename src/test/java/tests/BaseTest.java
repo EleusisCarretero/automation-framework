@@ -24,6 +24,7 @@ import utilities.AssertManager;
 public class BaseTest {
 	protected static final Logger LOGGER = Logger.getLogger(BaseTest.class.getName());
 	protected static int stepNum = 1;
+	protected static List<Integer> advertCoors = List.of(30, 900);
 	protected WebDriver driver;
 	private BasePage page;
 	protected AssertManager assertManager;

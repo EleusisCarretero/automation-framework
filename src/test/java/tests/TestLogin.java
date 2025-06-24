@@ -129,7 +129,7 @@ public class TestLogin extends BaseTest {
 	    // 3. Select country
 	    verifyDropDownSet(this.siguppage.countryDropDown(), "Australia", false);
 	    // 3. 1 close advert
-	    this.loginpage.clickOnCoordinates(stepNum, stepNum);
+	    this.loginpage.clickOnCoordinates(advertCoors.get(0), advertCoors.get(1));
 	    // 4. Fill user personal data user info
 	    List<Map<InputElement, String>> inputMapList = new ArrayList<>();
 	    inputMapList.add(Map.of(this.siguppage.firstnameInput(), name));
