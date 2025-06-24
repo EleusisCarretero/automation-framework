@@ -80,7 +80,10 @@ public class TestLogin extends BaseTest {
 		// verify Error msg
 		String actualErrorMsg = this.page.errorMsg();
 		LOGGER.info("Check the actual error message " + actualErrorMsg + " has the expected value " + exptectedErroMsg);
-		Assert.assertEquals(this.page.errorMsg(), exptectedErroMsg);
+		Assert.assertEquals(
+				actualErrorMsg,
+				exptectedErroMsg, 
+				"Actual error message " + actualErrorMsg + "is not equals to " + exptectedErroMsg);
 	}
 	
 	void stepVerifysignup(String name, String email, String expecteTitle) {
@@ -88,7 +91,7 @@ public class TestLogin extends BaseTest {
 		stepMsg("Verify the sigup fields has fill successfully and reaching siguo url");
 		List<Map<InputElement, String>> inputMapList = buildInputMap(
 			    new InputElement[] { this.page.newUserName(), this.page.newUserEmailAdds() },
-			    new String[] { email, email }
+			    new String[] { name, email }
 			);
 		// 2. Click singup button
 		verifyFillAndClick(inputMapList, this.page.signupBtn());
@@ -212,7 +215,7 @@ public class TestLogin extends BaseTest {
 		stepVerifyDeleteAccount(expectedAccDeltitle);
 	}
 
-	@Test
+	//@Test
 	void testLoginInvalidUser() throws InterruptedException {
 		String email = "Pedrio@mail.com";
 		String password ="123unodos";

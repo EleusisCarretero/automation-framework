@@ -21,6 +21,7 @@ import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 import io.opentelemetry.internal.shaded.jctools.queues.MessagePassingQueue.Consumer;
 import pages.BasePage;
 import utilities.ApiConnecter;
+import utilities.AssertManager;
 import utilities.Button;
 import utilities.CheckboxButton;
 import utilities.DataBaseReader;
@@ -34,9 +35,11 @@ public class BaseTest {
 	protected static int stepNum = 1;
 	WebDriver driver;
 	private BasePage page;
+	protected AssertManager assertManager;
 	
 	boolean setup(BasePage page) {
 		this.page = page;
+		this.assertManager = new AssertManager();
 		return this.page.launchPage();
 	}
 	
@@ -75,18 +78,16 @@ public class BaseTest {
 	
 	void checkInputFill(InputElement inputElement, String input) {
 		stepMsg("Check input element" + inputElement.name() + "has the expected value");
-		Assert.assertEquals(inputElement.text(), input);
+		this.assertManager.checkEqualsTo(inputElement.text(), input);
 	}
 	
+	@SuppressWarnings("unchecked")
 	void verifyInputFill(InputElement inputElement, String input, boolean clean) {
 		// 1.- Set the value
 		stepMsg("Verify input element" + inputElement.name() + "has been filled succesfully");
-		try {
+		this.assertManager.assertNotThrowsOfType(() -> {
 			inputElement.write(input, clean);
-			Assert.assertEquals(true, true);
-		}catch(NoSuchElementException | TimeoutException e) {
-			Assert.fail("While trying to write in element" + inputElement.name() + "An expcetion has happend", e);
-		}
+		}, NoSuchElementException.class, TimeoutException.class);
 		// 2.- Verify content of input element
 		checkInputFill(inputElement, input);
 	}
@@ -127,7 +128,10 @@ public class BaseTest {
 		}
 		// 2 read the actual value
 		String currentValue = dropDownElement.get(byVisibleText);
-		Assert.assertEquals(currentValue, expectedValue);
+		Assert.assertEquals(
+				currentValue,
+				expectedValue,
+				"The actual value " + currentValue + "is not equals to " + expectedValue);
 	}
 	
 	void verifyDropDownSet(DropDownElement dropDownElement, String expectedValue) {
