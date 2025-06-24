@@ -98,7 +98,7 @@ public class BaseTest {
 		NoSuchElementException.class, StaleElementReferenceException.class, TimeoutException.class, ElementClickInterceptedException.class);
 	}
 	
-	protected void verifyFillAndClick(List<Map <InputElement, String>> inputMapList, Button buttonElement) {
+	protected void verifyFillAndClick(List<Map <InputElement, String>> inputMapList, Button buttonElement, boolean openPage) {
 		// 1. fill all the input elements and validate they have been correctly executed
 		stepMsg("Verify the whole input elements list is filled and button click executede successfully");
 		for (Map <InputElement, String> inputMap: inputMapList) {
@@ -107,8 +107,14 @@ public class BaseTest {
 			});
 		}
 		awaiting(3);
-		// 2. Execute simple click
-		verifySimpleClick(buttonElement);
+		if (openPage) {
+			// 2. Click button and check that the url has changed
+			stepVerifyPageOpenAfterClickBtn(buttonElement);
+		}
+		else {
+			// 2. Execute simple click
+			verifySimpleClick(buttonElement);
+		}
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -192,7 +198,7 @@ public class BaseTest {
 		else {this.assertManager.CheckNotEqualsTo(currentURl, expectedUrl);}
 	}
 	
-	protected void stepVerifyPageOpenAfterClickBtn(Button button, BasePage page) {
+	protected void stepVerifyPageOpenAfterClickBtn(Button button) {
 		// 1 get current url
 		String url = switchContext(0);
 		// 2. Click button

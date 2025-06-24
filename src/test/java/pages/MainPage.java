@@ -13,6 +13,9 @@ public class MainPage extends BasePage {
 	
 	@FindBy(xpath="//header[@id='header']//li[5]//a[1]")
 	WebElement deleteAccBtn;
+	
+	@FindBy(xpath="//header[@id='header']//li[4]//a[1]")
+	WebElement logoutBtn;
 
 	public MainPage(WebDriver driver, String url) {
 		super(driver, url);
@@ -24,5 +27,9 @@ public class MainPage extends BasePage {
 	
 	public Button deleteAccBtn() {
 		return new Button(driver, deleteAccBtn, "Delete account Button");
+	}
+	
+	public Button logoutBtn() {
+		return new Button(driver, logoutBtn, "Logout Button");
 	}
 }
