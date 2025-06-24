@@ -53,11 +53,10 @@ public class BaseTest {
 		return hdlArray[position];
 	}
 	
-	String switchContext(int position) {
+	public String switchContext(int position) {
 		String currentHdlr = getNeededHdl(position);
 		this.driver.switchTo().window(currentHdlr);
 		return this.driver.getCurrentUrl();
-		
 	}
 	
 	protected void awaiting(int awatingTime) {
@@ -88,7 +87,7 @@ public class BaseTest {
 	}
 	
 	@SuppressWarnings("unchecked")
-	void verifySimpleClick(Button buttonElement) {
+	public void verifySimpleClick(Button buttonElement) {
 		// Try to execute normal click
 		String errorMessage = "While trying to click on element" + buttonElement.name() + " an expcetion has happend";
 		stepMsg("Verify simple click on " + buttonElement.name() + "has been exceuted successfully");
