@@ -1,15 +1,14 @@
 package pages;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ui.Button;
+import ui.CheckboxButton;
+import ui.DropDownElement;
+import ui.InputElement;
+import ui.RadioButton;
+import ui.TextElement;
 
-import utilities.CheckboxButton;
-import utilities.DropDownElement;
-import utilities.InputElement;
-import utilities.RadioButton;
-import utilities.TextElement;
-import utilities.Button;
 
 public class SigupPage extends BasePage {
 	

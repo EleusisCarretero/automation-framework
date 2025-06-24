@@ -1,46 +1,39 @@
 package tests;
-
-import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import com.google.common.base.Supplier;
-
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
-import io.opentelemetry.internal.shaded.jctools.queues.MessagePassingQueue.Consumer;
 import pages.AccountCreatedPage;
 import pages.DeleteAccountPage;
 import pages.LoginPage;
 import pages.MainPage;
 import pages.SigupPage;
-import utilities.DropDownElement;
-import utilities.InputElement;
+import ui.DropDownElement;
+import ui.InputElement;
+
 
 public class TestLogin extends BaseTest {
-	LoginPage page;
+	LoginPage loginpage;
 	SigupPage siguppage;
 	AccountCreatedPage accpage;
 	MainPage mainpage;
 	DeleteAccountPage deletaepage;
 	
-	@Parameters("url")
+	@Parameters({"url", "loginurl", "signupurl", "accurl", "acdurl"})
 	@BeforeMethod
-	void setup(String url) throws Exception {
+	void setup(String url, String loginurl, String signupurl, String accurl, String acdurl) throws Exception {
 		this.driver = new ChromeDriver();
-		this.page = new LoginPage(this.driver, url);
-		this.siguppage = new SigupPage(this.driver, "https://automationexercise.com/signup");
-		this.accpage = new AccountCreatedPage(this.driver,"https://automationexercise.com/account_created");
-		this.mainpage = new MainPage(this.driver, "https://automationexercise.com/");
-		this.deletaepage = new DeleteAccountPage(this.driver, "https://automationexercise.com/delete_account");
-		boolean isLaunched = super.setup(page);
+		this.loginpage = new LoginPage(this.driver, url + loginurl);
+		this.siguppage = new SigupPage(this.driver, url + signupurl);
+		this.accpage = new AccountCreatedPage(this.driver,url + accurl);
+		this.mainpage = new MainPage(this.driver, url);
+		this.deletaepage = new DeleteAccountPage(this.driver, url + acdurl);
+		boolean isLaunched = super.setup(loginpage);
 		if (!isLaunched) {
 			throw new Exception("The wen page could not be launched");
 		}
@@ -65,39 +58,36 @@ public class TestLogin extends BaseTest {
 	
 	void verifylogin(String email, String password) {
 		List<Map<InputElement, String>> inputMapList = buildInputMap(
-			    new InputElement[] { this.page.loginemailInput(), this.page.loginpasswordInput() },
+			    new InputElement[] { this.loginpage.loginemailInput(), this.loginpage.loginpasswordInput() },
 			    new String[] { email, password }
 			);
-		verifyFillAndClick(inputMapList, this.page.loginBtn());
+		verifyFillAndClick(inputMapList, this.loginpage.loginBtn());
 	}
 	
 	void verifylogin(String email, String password, String exptectedErroMsg) {
 		List<Map<InputElement, String>> inputMapList = buildInputMap(
-			    new InputElement[] { this.page.loginemailInput(), this.page.loginpasswordInput() },
+			    new InputElement[] { this.loginpage.loginemailInput(), this.loginpage.loginpasswordInput() },
 			    new String[] { email, password }
 			);
-		verifyFillAndClick(inputMapList, this.page.loginBtn());
+		verifyFillAndClick(inputMapList, this.loginpage.loginBtn());
 		// verify Error msg
-		String actualErrorMsg = this.page.errorMsg();
-		LOGGER.info("Check the actual error message " + actualErrorMsg + " has the expected value " + exptectedErroMsg);
-		Assert.assertEquals(
-				actualErrorMsg,
-				exptectedErroMsg, 
-				"Actual error message " + actualErrorMsg + "is not equals to " + exptectedErroMsg);
+		LOGGER.info("Check the actual error message has the expected value " + exptectedErroMsg);
+		boolean hasText = this.loginpage.errorMsg(exptectedErroMsg);
+		this.assertManager.checkIsTrue(hasText);
 	}
 	
 	void stepVerifysignup(String name, String email, String expecteTitle) {
 		// 1. Enter credentials
 		stepMsg("Verify the sigup fields has fill successfully and reaching siguo url");
 		List<Map<InputElement, String>> inputMapList = buildInputMap(
-			    new InputElement[] { this.page.newUserName(), this.page.newUserEmailAdds() },
+			    new InputElement[] { this.loginpage.newUserName(), this.loginpage.newUserEmailAdds() },
 			    new String[] { name, email }
 			);
 		// 2. Click singup button
-		verifyFillAndClick(inputMapList, this.page.signupBtn());
+		verifyFillAndClick(inputMapList, this.loginpage.signupBtn());
 		awaiting(1);
 		// 3. check url
-		checkUrl(this.page.url(), false);
+		checkUrl(this.loginpage.url(), false);
 		// 4 check title page
 		checkTextElemtValue(this.siguppage.titleIntoText(), expecteTitle);
 	}
@@ -138,6 +128,8 @@ public class TestLogin extends BaseTest {
 	    stepVerifyfillBirthday(birthday);
 	    // 3. Select country
 	    verifyDropDownSet(this.siguppage.countryDropDown(), "Australia", false);
+	    // 3. 1 close advert
+	    this.loginpage.clickOnCoordinates(stepNum, stepNum);
 	    // 4. Fill user personal data user info
 	    List<Map<InputElement, String>> inputMapList = new ArrayList<>();
 	    inputMapList.add(Map.of(this.siguppage.firstnameInput(), name));
@@ -169,6 +161,7 @@ public class TestLogin extends BaseTest {
 	@Parameters("signupurl")
 	@Test
 	void testNewUSer(String signupurl) throws InterruptedException {
+		// Read a random user from api
 		Map<String, Object> values = getUserData(List.of(
 				"login.username",
 				"email",
@@ -215,7 +208,7 @@ public class TestLogin extends BaseTest {
 		stepVerifyDeleteAccount(expectedAccDeltitle);
 	}
 
-	//@Test
+	@Test
 	void testLoginInvalidUser() throws InterruptedException {
 		String email = "Pedrio@mail.com";
 		String password ="123unodos";

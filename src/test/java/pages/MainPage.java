@@ -1,13 +1,10 @@
 package pages;
-
-
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ui.Button;
+import ui.TextElement;
 
-import utilities.Button;
-import utilities.TextElement;
 
 public class MainPage extends BasePage {
 	

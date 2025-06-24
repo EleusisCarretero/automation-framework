@@ -16,7 +16,7 @@ public class DataBaseReader {
 	String password;
 	private Connection cn;
 	
-	DataBaseReader(String dbUrl, String user, String password) throws DataBaseReaderException{
+	public DataBaseReader(String dbUrl, String user, String password) throws DataBaseReaderException{
 		
 		this.dbUrl = dbUrl;
 		this.user = user;

@@ -1,11 +1,11 @@
 package pages;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ui.Button;
+import ui.InputElement;
+import ui.TextElement;
 
-import utilities.Button;
-import utilities.InputElement;
 
 public class LoginPage extends BasePage {
 	
@@ -20,8 +20,7 @@ public class LoginPage extends BasePage {
 	@FindBy(xpath="//button[@type='submit' and text()='Login']")
 	WebElement loginBtn;
 	
-	@FindBy(css="form.p[style='color: red']")
-	WebElement errorMsg;
+	String erroMsgLocator = "//p[normalize-space()='%s']";
 	
 	// New user
 	@FindBy(xpath="//input[@type='text' and contains(@data-qa,'signup-name') and contains(@name,'name')]")
@@ -50,8 +49,9 @@ public class LoginPage extends BasePage {
 		return new Button(driver, loginBtn, "log in button");
 	}
 	
-	public String errorMsg() {
-		return errorMsg.getText();
+	public boolean errorMsg(String expectedErroMsg) {
+		TextElement erroText = new TextElement(driver, null, "Error message");
+		return erroText.dinamicText(erroMsgLocator, expectedErroMsg);
 	}
 	
 	public InputElement newUserName() {

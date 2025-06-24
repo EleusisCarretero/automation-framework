@@ -1,7 +1,10 @@
 <suite name="Suite">
   <test name="TestLoginOnly">
-    <parameter name="url" value="https://automationexercise.com/login"/>
-    <parameter name="signupurl" value="https://automationexercise.com/signup"/>
+  	<parameter name="url" value="https://automationexercise.com/"/>
+    <parameter name="loginurl" value="login"/>
+    <parameter name="signupurl" value="signup"/>
+    <parameter name="accurl" value="account_created"/>
+     <parameter name="acdurl" value="delete_account"/>
     <classes>
       	<class name="tests.TestLogin"/>
     </classes>

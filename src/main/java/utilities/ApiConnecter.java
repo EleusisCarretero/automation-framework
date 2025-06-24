@@ -2,8 +2,6 @@ package utilities;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
@@ -16,12 +14,11 @@ import org.json.JSONObject;
 
 
 public class ApiConnecter {
-	protected static final Logger LOGGER = Logger.getLogger(DataBaseReader.class.getName());
+	protected static final Logger LOGGER = Logger.getLogger(ApiConnecter.class.getName());
 	private String baseUrl;
 	URL url;
 	HttpURLConnection con;
 	
-	@SuppressWarnings("deprecation")
 	public ApiConnecter(String baseUrl) {
 		this.baseUrl = baseUrl;
 		
@@ -34,6 +31,7 @@ public class ApiConnecter {
 		this.baseUrl = baseUrl;
 	}
 	
+	@SuppressWarnings("deprecation")
 	private void setupConnection(String url) {
 		try {
 			this.url = new URL("https://randomuser.me/api/");

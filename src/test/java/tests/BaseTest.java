@@ -1,39 +1,30 @@
 package tests;
-
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.logging.Logger;
-
 import org.json.JSONObject;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
-
-import com.google.common.base.Supplier;
-import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
-
-import io.opentelemetry.internal.shaded.jctools.queues.MessagePassingQueue.Consumer;
 import pages.BasePage;
+import ui.Button;
+import ui.CheckboxButton;
+import ui.DropDownElement;
+import ui.InputElement;
+import ui.RadioButton;
+import ui.TextElement;
 import utilities.ApiConnecter;
 import utilities.AssertManager;
-import utilities.Button;
-import utilities.CheckboxButton;
-import utilities.DataBaseReader;
-import utilities.DropDownElement;
-import utilities.InputElement;
-import utilities.RadioButton;
-import utilities.TextElement;
+
 
 public class BaseTest {
-	protected static final Logger LOGGER = Logger.getLogger(DataBaseReader.class.getName());
+	protected static final Logger LOGGER = Logger.getLogger(BaseTest.class.getName());
 	protected static int stepNum = 1;
-	WebDriver driver;
+	protected WebDriver driver;
 	private BasePage page;
 	protected AssertManager assertManager;
 	
@@ -215,7 +206,6 @@ public class BaseTest {
 		try {
 			response = apiCon.getQuery();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return apiCon.filterFields(response, fields);

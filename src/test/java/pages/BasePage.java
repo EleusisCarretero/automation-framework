@@ -1,25 +1,18 @@
 package pages;
-
 import java.time.Duration;
-import java.util.NoSuchElementException;
-
-import org.openqa.selenium.ElementClickInterceptedException;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.TimeoutException;
+import java.util.logging.Logger;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
+import utilities.CommonTools;
 
-import utilities.InputElement;
 
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 
 public class BasePage {
+	protected static final Logger LOGGER = Logger.getLogger(BasePage.class.getName());
 	WebDriver driver;
 	WebDriverWait wait;
+	CommonTools helpetool;
 	String URL;
 	int TIMEOUT = 10;
 	
@@ -28,6 +21,7 @@ public class BasePage {
 		this.driver.manage().window().maximize();
 		this.URL = url;
 		wait = new WebDriverWait(this.driver, Duration.ofSeconds(TIMEOUT));
+		this.helpetool = new CommonTools();
 		PageFactory.initElements(this.driver, this);
 	}
 	
@@ -54,7 +48,7 @@ public class BasePage {
 	public boolean quitPage() {
 		try {
 			this.driver.quit();
-			System.out.println(this.URL + "Corrctly quit");
+			System.out.println(this.URL + "Correctly quit");
 			return true;
 		}
 		catch(Exception e) {
@@ -64,6 +58,14 @@ public class BasePage {
 	}
 	public String url() {
 		return URL;
+	}
+	
+	public void clickOnCoordinates(int coX, int coY) {
+		try {
+			this.helpetool.clickCoordinates(coX, coY);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
