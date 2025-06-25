@@ -13,6 +13,9 @@ public class TestProductdetails extends BaseTestProduct{
 	void testAllProductsAndProductDetail(String expectedTiltle) {
 		checkTextElemtValue(this.productpage.title(), expectedTiltle);
 		stepCheckElementsVisible();
+		stepCheckDetailsPageProduct(0);
+		stepCheckDetailsProductVisible();
+		
 	}
 
 }

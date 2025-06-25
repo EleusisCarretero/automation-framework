@@ -12,6 +12,7 @@ import pages.AccountCreatedPage;
 import pages.DeleteAccountPage;
 import pages.LoginPage;
 import pages.MainPage;
+import pages.ProductDetailPage;
 import pages.ProductsPage;
 import pages.SigupPage;
 import tests.BaseTest;
@@ -20,13 +21,15 @@ import ui.PreliminarProductView;
 public class BaseTestProduct extends BaseTest {
 	MainPage mainpage;
 	ProductsPage productpage;
+	ProductDetailPage productdetailpage;
 	
-	@Parameters({"url", "productsurl"})
+	@Parameters({"url", "productsurl", "singleproducturl"})
 	@BeforeMethod
-	void setup(String url, String productsurl) throws Exception {
+	void setup(String url, String productsurl, String singleproducturl) throws Exception {
 		this.driver = new ChromeDriver();
 		this.mainpage = new MainPage(this.driver, url);
 		this.productpage = new ProductsPage(this.driver, url + productsurl);
+		this.productdetailpage = new ProductDetailPage(this.driver, url + singleproducturl);
 		boolean isLaunched = super.setup(productpage);
 		if (!isLaunched) {
 			throw new Exception("The wen page could not be launched");
@@ -43,12 +46,28 @@ public class BaseTestProduct extends BaseTest {
 	public void stepCheckElementsVisible() {
 		stepMsg("Check all producs are visible");
 		List<PreliminarProductView> products = this.productpage.products();
-		boolean caliz = products.get(0).isVisible();
-		System.out.println("Here: " + caliz);
-		//boolean allVisible = products.stream()
-		//		.allMatch(p -> p.isVisible());
-		//this.assertManager.checkIsTrue(allVisible);
+		boolean allVisible = products.stream()
+				.allMatch(p -> p.isVisible());
+		this.assertManager.checkIsTrue(allVisible);
+	}
+	
+	public void stepCheckDetailsPageProduct(int indexProduct) {
+		stepMsg("Check the select product page datils has opened");
+		// 1. select product by index
+		PreliminarProductView productSelected = this.productpage.getSingleProduct(indexProduct);
+		// 2. click on view product
+		stepVerifyPageOpenAfterClickBtn(productSelected.viewProductBtn());
+		// 3. Check url
+		int producturl = indexProduct + 1;
+		checkUrl(this.productdetailpage.url() + producturl, true);
 	}
 
+	public void stepCheckDetailsProductVisible() {
+		// check detais visible
+		stepMsg("Check all product page details are visible");
+		boolean detailsVisible = this.productdetailpage.productcarddetails().isVisible();
+		this.assertManager.checkIsTrue(detailsVisible);
+	}
+	
 
 }

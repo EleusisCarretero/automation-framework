@@ -18,16 +18,16 @@ public class ProductCardDetails extends Element {
 	private By quantityInputLocator = By.id("quantity");
 
 	private WebElement addToCartBtn;
-	private By addToCartBtnLocator = By.xpath(".//button[contains(text(),'Add to cart')]");
+	private By addToCartBtnLocator = By.xpath(".//button[normalize-space()='Add to cart']");
 
 	private WebElement availability;
-	private By availabilityLocator = By.xpath(".//b[text()='Availability:']/following-sibling::text()");
+	private By availabilityLocator = By.xpath(".//b[contains(text(),'Availability:')]");
 
 	private WebElement condition;
-	private By conditionsLocator = By.xpath(".//b[text()='Condition:']/following-sibling::text()");
+	private By conditionsLocator = By.xpath(".//b[contains(text(),'Condition:')]");
 
 	private WebElement brand;
-	private By brandLocator = By.xpath(".//b[text()='Brand:']/following-sibling::text()");
+	private By brandLocator = By.xpath(".//b[contains(text(),'Brand:')]");
 
 	public ProductCardDetails(WebDriver driver, WebElement element, String name) {
 		super(driver, element, name);
@@ -80,6 +80,11 @@ public class ProductCardDetails extends Element {
     
     public TextElement brand() {
         return new TextElement(driver, brand, "Brand Text element");
+    }
+    
+    @Override
+    public boolean isVisible() {
+    	return (productName().isVisible() && category().isVisible() && price().isVisible() && quantityInput().isVisible() && condition().isVisible() && brand().isVisible());
     }
 
 
