@@ -43,7 +43,11 @@ public class BaseTestProduct extends BaseTest {
 		return isClosed;
 	}
 	
-	public void stepCheckElementsVisible() {
+	public void stepCheckElementsVisible(boolean closeAdvert) {
+		if (closeAdvert) {
+			LOGGER.info("Closing advertising by clicking on 900, 850");
+			this.productdetailpage.clickOnCoordinates(840, 860);
+		}
 		stepMsg("Check all producs are visible");
 		List<PreliminarProductView> products = this.productpage.products();
 		boolean allVisible = products.stream()
