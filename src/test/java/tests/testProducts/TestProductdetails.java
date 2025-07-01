@@ -7,7 +7,7 @@ public class TestProductdetails extends BaseTestProduct{
 	
 	
 	@Parameters("expectedTiltle")
-	@Test(groups = {"prducts","product details", "smoke"})
+	@Test(groups = {"prducts","product details", "smoke"}, priority = 3)
 	void testAllProductsAndProductDetail(String expectedTiltle) {
 		checkTextElemtValue(this.productpage.title(), expectedTiltle);
 		stepCheckElementsVisible(true,true);

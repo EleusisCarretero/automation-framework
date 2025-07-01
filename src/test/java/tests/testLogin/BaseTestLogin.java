@@ -7,6 +7,8 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
+
+import io.qameta.allure.Step;
 import pages.AccountCreatedPage;
 import pages.DeleteAccountPage;
 import pages.LoginPage;
@@ -55,6 +57,7 @@ public class BaseTestLogin extends BaseTest {
 	    return list;
 	}
 	
+	@Step("Verify that the login has been succesfull")
 	void stepVerifylogin(String email, String password) {
 		stepMsg("Verify that the login has been succesfull");
 		List<Map<InputElement, String>> inputMapList = buildInputMap(
@@ -65,6 +68,7 @@ public class BaseTestLogin extends BaseTest {
 		checkUrl(this.mainpage.url(), true);
 	}
 	
+	@Step("Verify that the login has fails and error message {exptectedErroMsg} is displayed")
 	void stepVerifylogin(String email, String password, String exptectedErroMsg) {
 		stepMsg("Verify that the login has fails and error message " +  exptectedErroMsg + " is displayed");
 		List<Map<InputElement, String>> inputMapList = buildInputMap(
@@ -72,12 +76,14 @@ public class BaseTestLogin extends BaseTest {
 			    new String[] { email, password }
 			);
 		verifyFillAndClick(inputMapList, this.loginpage.loginBtn(), false);
+		awaiting(1);
 		// verify Error msg
 		LOGGER.info("Check the actual error message has the expected value " + exptectedErroMsg);
 		boolean hasText = this.loginpage.errorMsg(exptectedErroMsg);
 		this.assertManager.checkIsTrue(hasText);
 	}
 	
+	@Step("Verify the sigup fields has fill successfully and reaching siguo url")
 	void stepVerifysignup(String name, String email, String expecteTitle) {
 		// 1. Enter credentials
 		stepMsg("Verify the sigup fields has fill successfully and reaching siguo url");
@@ -94,6 +100,7 @@ public class BaseTestLogin extends BaseTest {
 		checkTextElemtValue(this.siguppage.titleIntoText(), expecteTitle);
 	}
 	
+	@Step("Verify the signup is not allowed and erro message is displayed")
 	void stepVerifysignup(String name, String email, String exptectedErroMsg, boolean s) {
 		// 1. Enter credentials
 		stepMsg("Verify the signup is not allowed and erro message is displayed");
@@ -112,6 +119,7 @@ public class BaseTestLogin extends BaseTest {
 		this.assertManager.checkIsTrue(hasText);
 	}
 	
+	@Step("Verify Dropdown birthay have been set successfully")
 	void stepVerifyfillBirthday(String birthday) {
 		List<String> birthdayFields =  new ArrayList<>();
 		stepMsg("Verify Dropdown birthay have been set successfully");
@@ -127,6 +135,7 @@ public class BaseTestLogin extends BaseTest {
 	    verifyMultipleDropDownSet(dropDownList, birthdayFields, visibleFlags);
 	}
 
+	@Step("Verifu all new user data information is correclty filled and the new user page opens")
 	void stepVerifySignupData(String username, String email, String password, String nametitle, String birthday, String name,
             String lastname, String company, String address1, String address2,
             String state, String city, String zipcode, String mobileNum, String expectedAccTitle) {
@@ -166,16 +175,19 @@ public class BaseTestLogin extends BaseTest {
 	    checkTextElemtValue(this.accpage.titleIntoText(), expectedAccTitle);
 	}
 
+	@Step("Check the Logged name matches with the expetced {name}")
 	void stepCheckLogged(String name) {
 		stepMsg("Check the Logged name matches with the expetced " + name);
 	    checkTextElemtValue(this.mainpage.loggedTextElement(), "Logged in as " + name);
 	}
 	
+	@Step("Cehck the account has been deleted")
 	void stepVerifyDeleteAccount(String expectedAccDeltitle) {
 	    checkTextElemtValue(this.deletaepage.deletedTitle(), expectedAccDeltitle);
 	    stepVerifyPageOpenAfterClickBtn(this.deletaepage.continueBtn());
 	}
 	
+	@Step("Check the user has logout succesfully")
 	void stepCheckLogout() {
 		stepMsg("Check the user has logout succesfully");
 		verifySimpleClick(this.mainpage.logoutBtn());

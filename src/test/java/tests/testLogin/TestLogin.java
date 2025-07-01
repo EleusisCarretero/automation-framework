@@ -16,7 +16,7 @@ public class TestLogin extends BaseTestLogin {
 		stepCheckLogout();
 	}
 
-	@Test(groups = "regression")
+	@Test(groups = "regression", priority = 1)
 	void testLoginInvalidUser() throws InterruptedException {
 		String email = "Pedrio@mail.com";
 		String password ="123unodos";

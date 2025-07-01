@@ -6,6 +6,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
+
+import io.qameta.allure.Step;
 import pages.MainPage;
 import pages.ProductDetailPage;
 import pages.ProductsPage;
@@ -46,6 +48,7 @@ public class BaseTestProduct extends BaseTest {
 		return isClosed;
 	}
 	
+	@Step("Check all products are visible")
 	public void stepCheckElementsVisible(boolean visible, boolean closeAdvert) {
 		if (closeAdvert) {
 			checkCloseAvdertising( this.productpage, 830, 860);
@@ -61,6 +64,7 @@ public class BaseTestProduct extends BaseTest {
 		}
 	}
 	
+	@Step("Check the select product index {indexProduct} page datils has opened")
 	public void stepCheckDetailsPageProduct(int indexProduct) {
 		stepMsg("Check the select product page datils has opened");
 		// 1. select product by index
@@ -72,6 +76,7 @@ public class BaseTestProduct extends BaseTest {
 		checkUrl(this.productdetailpage.url() + producturl, true);
 	}
 
+	@Step("Check all product page details are visible")
 	public void stepCheckDetailsProductVisible() {
 		// check detais visible
 		stepMsg("Check all product page details are visible");
@@ -79,6 +84,7 @@ public class BaseTestProduct extends BaseTest {
 		this.assertManager.checkIsTrue(detailsVisible);
 	}
 	
+	@Step("Searching product {searchProduct}")
 	public void StepSearchProduct(String searchProduct, boolean findProduct) {
 		// 1. Enter product to looking for and click on
 		stepMsg("Searching product " + searchProduct);

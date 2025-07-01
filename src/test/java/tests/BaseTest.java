@@ -10,6 +10,8 @@ import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+
+import io.qameta.allure.Step;
 import pages.BasePage;
 import ui.Button;
 import ui.CheckboxButton;
@@ -73,6 +75,7 @@ public class BaseTest {
 		this.assertManager.checkEqualsTo(inputElement.text(), input);
 	}
 	
+	@Step("Verify input element has been filled succesfully")
 	@SuppressWarnings("unchecked")
 	protected
 	void verifyInputFill(InputElement inputElement, String input, boolean clean) {
@@ -87,6 +90,7 @@ public class BaseTest {
 		checkInputFill(inputElement, input);
 	}
 	
+	@Step("Verify simple click on button has been exceuted successfully")
 	@SuppressWarnings("unchecked")
 	public void verifySimpleClick(Button buttonElement) {
 		// Try to execute normal click
@@ -98,6 +102,7 @@ public class BaseTest {
 		NoSuchElementException.class, StaleElementReferenceException.class, TimeoutException.class, ElementClickInterceptedException.class);
 	}
 	
+	@Step("Verify the whole input elements list is filled and button click executede successfully")
 	protected void verifyFillAndClick(List<Map <InputElement, String>> inputMapList, Button buttonElement, boolean openPage) {
 		// 1. fill all the input elements and validate they have been correctly executed
 		stepMsg("Verify the whole input elements list is filled and button click executede successfully");
@@ -117,6 +122,7 @@ public class BaseTest {
 		}
 	}
 	
+	@Step("Verify that the DropDown element has been set succesfully")
 	@SuppressWarnings("unchecked")
 	protected
 	void verifyDropDownSet(DropDownElement dropDownElement, String expectedValue, boolean byVisibleText) {
@@ -160,11 +166,13 @@ public class BaseTest {
 		}
 	}
 	
+	@Step("Verify that the Text element has correct value")
 	protected void checkTextElemtValue(TextElement textElement, String expectedValue) {
 		stepMsg("Verify that the " + textElement.name() + "Text element has correct value");
 		this.assertManager.checkEqualsTo(textElement.text(), expectedValue);
 	}
 	
+	@Step("Verify that the radioButton is checked in the expected status")
 	protected void verifyRadioBtnChecked(RadioButton radioElement) {
 		stepMsg("Verify that the " + radioElement.name() + "is checked in the expected status");
 		boolean currentStatus = radioElement.isChecked();
@@ -176,11 +184,13 @@ public class BaseTest {
 		this.assertManager.checkIsTrue(radioElement.isChecked());
 	}
 	
+	@Step("Verify that the RadioButton is uncheck in the expected status")
 	void checkRadioBtnUnChecked(RadioButton radioElement) {
 		stepMsg("Verify that the " + radioElement.name() + "is uncheck in the expected status");
 		this.assertManager.checkIsFalse(radioElement.isChecked());
 	}
 	
+	@Step("Verify that the CheckButton is check as its expected status")
 	protected void verifyCheckboxButton(CheckboxButton checkboxButtonElement, boolean expectedStatus) {
 		stepMsg("Verify that the " + checkboxButtonElement.name() + "is check as its expected status");
 		boolean currentStatus = checkboxButtonElement.isChecked();
@@ -220,6 +230,7 @@ public class BaseTest {
 		return apiCon.filterFields(response, fields);
 	}
 	
+	@Step("Check the file {filepath} has been correctly updated")
 	public void StepCheckFileUploaded(Upload upload, String filepath) {
 		boolean status = false;
 		stepMsg("Check the file " + filepath + " has been correctly updated");

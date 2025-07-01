@@ -7,6 +7,8 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
+
+import io.qameta.allure.Step;
 import pages.ContactusPage;
 import pages.MainPage;
 import tests.BaseTest;
@@ -38,6 +40,7 @@ public class BaseContactus extends BaseTest {
 
 	}
 	
+	@Step("Check the format information has been fill correclty")
 	public void checkFormatfilledCorreclty(String name, String email, String subject, String message, String filepath, String expectedSuccessMsg) {
 		String currentContext = getNeededHdl(0);
 		stepMsg("Check the format information has been fill correclty");
