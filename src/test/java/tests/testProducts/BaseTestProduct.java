@@ -20,14 +20,14 @@ public class BaseTestProduct extends BaseTest {
 	
 	String expectedTiltle;
 	
-	@BeforeClass
+	@BeforeClass(alwaysRun = true)
 	@Parameters("expectedTiltle")
 	public void setExpectedTitle(String expectedTiltle) {
 		this.expectedTiltle = expectedTiltle;
 	}
 	
 	@Parameters({"url", "productsurl", "singleproducturl"})
-	@BeforeMethod
+	@BeforeMethod(alwaysRun = true)
 	void setup(String url, String productsurl, String singleproducturl) throws Exception {
 		this.driver = new ChromeDriver();
 		this.mainpage = new MainPage(this.driver, url);
@@ -39,7 +39,7 @@ public class BaseTestProduct extends BaseTest {
 		}
 	}
 	
-	@AfterMethod
+	@AfterMethod(alwaysRun = true)
 	public boolean teardown() {
 		boolean isClosed = super.teardown();
 		Assert.assertEquals(isClosed, true);
@@ -48,8 +48,7 @@ public class BaseTestProduct extends BaseTest {
 	
 	public void stepCheckElementsVisible(boolean visible, boolean closeAdvert) {
 		if (closeAdvert) {
-			LOGGER.info("Closing advertising by clicking on 900, 850");
-			this.productdetailpage.clickOnCoordinates(840, 860);
+			checkCloseAvdertising( this.productpage, 830, 860);
 		}
 		stepMsg("Check all producs are visible");
 		List<PreliminarProductView> products = this.productpage.products();

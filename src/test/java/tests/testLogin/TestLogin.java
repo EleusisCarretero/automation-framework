@@ -7,7 +7,7 @@ public class TestLogin extends BaseTestLogin {
 	
 	
 	@Parameters({"email", "password", "user"})
-	@Test
+	@Test(groups = {"login", "smoke"})
 	void testLogoutUSer(String email, String password, String user) {
 		stepVerifylogin(email, password);
 		stepCheckLogged(user);
@@ -16,7 +16,7 @@ public class TestLogin extends BaseTestLogin {
 		stepCheckLogout();
 	}
 
-	@Test
+	@Test(groups = "regression")
 	void testLoginInvalidUser() throws InterruptedException {
 		String email = "Pedrio@mail.com";
 		String password ="123unodos";

@@ -232,5 +232,11 @@ public class BaseTest {
 		this.assertManager.checkIsTrue(status);
 	}
 	
+	public void checkCloseAvdertising(BasePage page, int coX, int coY) {
+		LOGGER.info("Closing advertising from coordinates: [" + coX + ", "+ coY + "]");
+		page.clickOnCoordinates(coX, coY);
+		awaiting(2);
+	}
+	
 
 }

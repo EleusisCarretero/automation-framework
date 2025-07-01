@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 public class TestSignup extends BaseTestLogin {
 	
 	@Parameters("signupurl")
-	@Test
+	@Test(groups = {"signup", "regression"})
 	void testNewUSer(String signupurl) throws InterruptedException {
 		// Read a random user from api
 		Map<String, Object> values = getUserData(List.of(
@@ -57,8 +57,9 @@ public class TestSignup extends BaseTestLogin {
 		stepVerifyDeleteAccount(expectedAccDeltitle);
 	}
 	
+	
 	@Parameters({"userExisted", "emailExisted", "expectedErrorMsg"})
-	@Test
+	@Test(groups = {"signup", "sanity"})
 	void testRegisterExistingUser(String userExisted, String emailExisted, String expectedErrorMsg) {
 		stepVerifysignup(userExisted, emailExisted, expectedErrorMsg, true);
 	}

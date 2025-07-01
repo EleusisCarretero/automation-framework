@@ -17,8 +17,9 @@ public class BaseContactus extends BaseTest {
 	MainPage mainpage;
 	ContactusPage contactpage;
 	
+	
 	@Parameters({"url", "contactus"})
-	@BeforeMethod
+	@BeforeMethod(alwaysRun = true)
 	void setup(String url, String contactus) throws Exception {
 		this.driver = new ChromeDriver();
 		this.mainpage = new MainPage(this.driver, url);
@@ -29,7 +30,7 @@ public class BaseContactus extends BaseTest {
 		}
 	}
 	
-	@AfterMethod
+	@AfterMethod(alwaysRun = true)
 	public boolean teardown() {
 		boolean isClosed = super.teardown();
 		Assert.assertEquals(isClosed, true);

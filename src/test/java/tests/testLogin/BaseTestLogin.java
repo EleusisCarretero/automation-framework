@@ -24,8 +24,8 @@ public class BaseTestLogin extends BaseTest {
 	MainPage mainpage;
 	DeleteAccountPage deletaepage;
 	
+	@BeforeMethod(alwaysRun = true)
 	@Parameters({"url", "loginurl", "signupurl", "accurl", "acdurl"})
-	@BeforeMethod
 	void setup(String url, String loginurl, String signupurl, String accurl, String acdurl) throws Exception {
 		this.driver = new ChromeDriver();
 		this.loginpage = new LoginPage(this.driver, url + loginurl);
@@ -39,7 +39,7 @@ public class BaseTestLogin extends BaseTest {
 		}
 	}
 	
-	@AfterMethod
+	@AfterMethod(alwaysRun = true)
 	public boolean teardown() {
 		boolean isClosed = super.teardown();
 		Assert.assertEquals(isClosed, true);
