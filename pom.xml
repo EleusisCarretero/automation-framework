@@ -87,6 +87,7 @@
 	                <testFailureIgnore>true</testFailureIgnore>
 	                 <suiteXmlFiles>
 					      <suiteXmlFile>testLogin.xml</suiteXmlFile> <!-- o usa src/test/resources/testLogin.xml si lo tienes allí -->
+					      <suiteXmlFile>regressionTesting.xml</suiteXmlFile> <!-- o usa src/test/resources/testLogin.xml si lo tienes allí -->
 					 </suiteXmlFiles>
 	            </configuration>
 	            <dependencies>

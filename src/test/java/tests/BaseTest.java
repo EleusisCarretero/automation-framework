@@ -10,6 +10,7 @@ import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterMethod;
 
 import io.qameta.allure.Step;
 import pages.BasePage;
@@ -26,7 +27,7 @@ import utilities.AssertManager;
 
 public class BaseTest {
 	protected static final Logger LOGGER = Logger.getLogger(BaseTest.class.getName());
-	protected static int stepNum = 1;
+	protected int stepNum = 0;
 	protected static List<Integer> advertCoors = List.of(30, 900);
 	public WebDriver driver;
 	private BasePage page;
@@ -247,6 +248,11 @@ public class BaseTest {
 		LOGGER.info("Closing advertising from coordinates: [" + coX + ", "+ coY + "]");
 		page.clickOnCoordinates(coX, coY);
 		awaiting(2);
+	}
+	
+	@AfterMethod(alwaysRun=true)
+	public void cleanStepNum() {
+		stepNum = 0;
 	}
 	
 
