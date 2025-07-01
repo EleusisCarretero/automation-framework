@@ -1,6 +1,7 @@
 package tests.testProducts;
 
 import java.util.List;
+import java.util.Map;
 
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
@@ -16,6 +17,7 @@ import pages.ProductDetailPage;
 import pages.ProductsPage;
 import pages.SigupPage;
 import tests.BaseTest;
+import ui.InputElement;
 import ui.PreliminarProductView;
 
 public class BaseTestProduct extends BaseTest {
@@ -43,7 +45,7 @@ public class BaseTestProduct extends BaseTest {
 		return isClosed;
 	}
 	
-	public void stepCheckElementsVisible(boolean closeAdvert) {
+	public void stepCheckElementsVisible(boolean visible, boolean closeAdvert) {
 		if (closeAdvert) {
 			LOGGER.info("Closing advertising by clicking on 900, 850");
 			this.productdetailpage.clickOnCoordinates(840, 860);
@@ -52,7 +54,12 @@ public class BaseTestProduct extends BaseTest {
 		List<PreliminarProductView> products = this.productpage.products();
 		boolean allVisible = products.stream()
 				.allMatch(p -> p.isVisible());
-		this.assertManager.checkIsTrue(allVisible);
+		if(visible) {
+			this.assertManager.checkIsTrue(allVisible);
+		}
+		else {
+			this.assertManager.checkIsFalse(allVisible);
+		}
 	}
 	
 	public void stepCheckDetailsPageProduct(int indexProduct) {
@@ -71,6 +78,17 @@ public class BaseTestProduct extends BaseTest {
 		stepMsg("Check all product page details are visible");
 		boolean detailsVisible = this.productdetailpage.productcarddetails().isVisible();
 		this.assertManager.checkIsTrue(detailsVisible);
+	}
+	
+	public void StepSearchProduct(String searchProduct, boolean findProduct) {
+		// 1. Enter product to looking for and click on
+		stepMsg("Searching product " + searchProduct);
+		boolean searchStatus = this.productdetailpage.productSearchBar().search(searchProduct, true, false);
+		this.assertManager.checkIsTrue(searchStatus);
+		// 2. check title
+		checkTextElemtValue(this.productdetailpage.searchProductTitle(), "SEARCHED PRODUCTS");
+		// 3. check products visible
+		stepCheckElementsVisible(true, true);
 	}
 	
 

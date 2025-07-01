@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import ui.PreliminarProductView;
+import ui.SearchBar;
 import ui.TextElement;
 
 
@@ -17,6 +18,9 @@ public class ProductsPage extends BasePage {
 	
 	@FindBy(xpath="//div/div[contains(@class, 'product-image-wrapper')]")
 	List<WebElement> product;
+	
+	@FindBy(xpath="//section[@id='advertisement']//div[@class='container']")
+	WebElement productSearchBar;
 
 	public ProductsPage(WebDriver driver, String url) {
 		super(driver, url);
@@ -38,6 +42,10 @@ public class ProductsPage extends BasePage {
 	
 	public TextElement title() {
 		return new TextElement(driver, title, "Product title");
+	}
+	
+	public SearchBar productSearchBar() {
+		return new SearchBar(this.driver, productSearchBar, "Search Bar");
 	}
 
 }

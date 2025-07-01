@@ -2,47 +2,54 @@ package ui;
 
 import java.util.logging.Logger;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class SearchBar {
-	protected static final Logger LOGGER = Logger.getLogger(SearchBar.class.getName());
-	WebDriver driver;
-	WebElement input;
-	WebElement button;
+public class SearchBar extends Element{
+	
+	private WebElement searchField;
+	private By searchFieldLocator = By.id("search_product");
+	
+	private WebElement searchButton;
+	private By searchButtonLocator = By.id("submit_search");
 
-	public SearchBar(WebDriver driver, WebElement input, WebElement button) {
-		this.driver = driver;
-		this.input = input;
-		this.button = button;
+	public SearchBar(WebDriver driver, WebElement element, String name) {
+		super(driver, element, name);
+		initElements();
 	}
 	
-	public InputElement input() {
-		return new InputElement(driver, this.input, "Search input element");
+	private void initElements() {
+		this.searchField = this.element.findElement(searchFieldLocator);
+		this.searchButton = this.element.findElement(searchButtonLocator);
 	}
 	
-	public Button button() {
-		return new Button(driver, this.button, "Search button element");
+	public InputElement searchField() {
+		return new InputElement(driver, this.searchField, "Search input element");
+	}
+	
+	public Button searchButton() {
+		return new Button(driver, this.searchButton, "Search button element");
 	}
 	
 	public boolean search(String search, boolean clean, boolean byenter) {
 		boolean status = true;
 		try {
-			input().wait.until(ExpectedConditions.visibilityOf(input().element));
-			input().write(search,clean);
+			searchField().wait.until(ExpectedConditions.visibilityOf(searchField().element));
+			searchField().write(search,clean);
 		}
 		catch (TimeoutException | ElementClickInterceptedException e) {
 			LOGGER.severe("Error");
 			status = false; 
 		}
 		if(!byenter) {
-			button().click();
+			searchButton().click();
 		}
 		else {
-			input().element.submit();
+			searchField().element.submit();
 		}
 		return status;
 	}

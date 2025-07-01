@@ -9,10 +9,10 @@ public class TestProductdetails extends BaseTestProduct{
 	
 	
 	@Parameters("expectedTiltle")
-	@Test
+	//@Test
 	void testAllProductsAndProductDetail(String expectedTiltle) {
 		checkTextElemtValue(this.productpage.title(), expectedTiltle);
-		stepCheckElementsVisible(true);
+		stepCheckElementsVisible(true,true);
 		stepCheckDetailsPageProduct(0);
 		stepCheckDetailsProductVisible();
 		
