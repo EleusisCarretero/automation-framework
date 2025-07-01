@@ -61,8 +61,7 @@ public class BaseTestProduct extends BaseTest {
 		}
 		stepMsg("Check all producs are visible");
 		List<PreliminarProductView> products = this.productpage.products();
-		boolean allVisible = products.stream()
-				.allMatch(p -> p.isVisible());
+		boolean allVisible = !products.isEmpty() && products.stream().allMatch(p -> p.isVisible());
 		if(visible) {
 			this.assertManager.checkIsTrue(allVisible);
 		}
