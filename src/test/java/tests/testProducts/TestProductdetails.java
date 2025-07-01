@@ -1,9 +1,6 @@
 package tests.testProducts;
-
 import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
 
-import ui.TextElement;
 
 public class TestProductdetails extends BaseTestProduct{
 	

@@ -15,7 +15,6 @@ import pages.SigupPage;
 import tests.BaseTest;
 import ui.DropDownElement;
 import ui.InputElement;
-import ui.Upload;
 
 
 public class BaseTestLogin extends BaseTest {

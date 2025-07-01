@@ -1,10 +1,10 @@
 package ui;
 import java.util.NoSuchElementException;
-
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+
 
 public class InputElement extends Element{
 

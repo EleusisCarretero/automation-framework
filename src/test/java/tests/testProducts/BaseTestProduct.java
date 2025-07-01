@@ -1,25 +1,17 @@
 package tests.testProducts;
-
 import java.util.List;
-import java.util.Map;
-
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
-
-import pages.AccountCreatedPage;
-import pages.DeleteAccountPage;
-import pages.LoginPage;
 import pages.MainPage;
 import pages.ProductDetailPage;
 import pages.ProductsPage;
-import pages.SigupPage;
 import tests.BaseTest;
-import ui.InputElement;
 import ui.PreliminarProductView;
+
 
 public class BaseTestProduct extends BaseTest {
 	MainPage mainpage;
