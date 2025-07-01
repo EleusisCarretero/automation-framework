@@ -6,6 +6,7 @@ import java.util.Map;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 
@@ -24,6 +25,14 @@ public class BaseTestProduct extends BaseTest {
 	MainPage mainpage;
 	ProductsPage productpage;
 	ProductDetailPage productdetailpage;
+	
+	String expectedTiltle;
+	
+	@BeforeClass
+	@Parameters("expectedTiltle")
+	public void setExpectedTitle(String expectedTiltle) {
+		this.expectedTiltle = expectedTiltle;
+	}
 	
 	@Parameters({"url", "productsurl", "singleproducturl"})
 	@BeforeMethod
@@ -88,7 +97,7 @@ public class BaseTestProduct extends BaseTest {
 		// 2. check title
 		checkTextElemtValue(this.productdetailpage.searchProductTitle(), "SEARCHED PRODUCTS");
 		// 3. check products visible
-		stepCheckElementsVisible(true, true);
+		stepCheckElementsVisible(findProduct, true);
 	}
 	
 
