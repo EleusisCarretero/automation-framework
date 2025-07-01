@@ -1,0 +1,15 @@
+<suite name="Suite">
+  <test name="TestLoginOnly">
+  	<parameter name="url" value="https://automationexercise.com/"/>
+    <parameter name="loginurl" value="login"/>
+    <parameter name="signupurl" value="signup"/>
+    <parameter name="accurl" value="account_created"/>
+    <parameter name="acdurl" value="delete_account"/>
+    <parameter name="userExisted" value="ValudUser"/>
+    <parameter name="emailExisted" value="validuser@valid.com"/>
+    <parameter name="expectedErrorMsg" value="Email Address already exist!"/>
+    <classes>
+      	<class name="tests.testLogin.TestSignup"/>
+    </classes>
+  </test>
+</suite>

@@ -1,0 +1,16 @@
+<suite name="Suite">
+  <test name="TestLoginOnly">
+  	<parameter name="url" value="https://automationexercise.com/"/>
+    <parameter name="loginurl" value="login"/>
+    <parameter name="signupurl" value="signup"/>
+    <parameter name="accurl" value="account_created"/>
+    <parameter name="acdurl" value="delete_account"/>
+    <parameter name="email" value="validuser@valid.com"/>
+    <parameter name="password" value="123UnoDosTres"/>
+    <parameter name="user" value="ValudUser"/>
+    <parameter name="newuser" value="novatonew"/>
+    <classes>
+      	<class name="tests.testLogin.TestLogin"/>
+    </classes>
+  </test>
+</suite>

@@ -1,0 +1,15 @@
+<suite name="Suite">
+  <test name="TestLoginOnly">
+  	<parameter name="url" value="https://automationexercise.com/"/>
+    <parameter name="productsurl" value="products"/>
+    <parameter name="singleproducturl" value="product_details/"/>
+    <parameter name="expectedTiltle" value="ALL PRODUCTS"/>
+    <classes>
+      	<class name="tests.testProducts.TestProductdetails"/>
+    </classes>
+  </test>
+  
+  	
+ 
+  
+</suite>

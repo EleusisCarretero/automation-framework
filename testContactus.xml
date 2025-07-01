@@ -1,0 +1,15 @@
+<suite name="Suite">
+  <test name="TestLoginOnly">
+  	<parameter name="url" value="https://automationexercise.com/"/>
+    <parameter name="contactus" value="contact_us"/>
+    <parameter name="name" value="pedro Sanchez"/>
+    <parameter name="email" value="validuser@valid.com"/>
+    <parameter name="subject" value="Order lost"/>
+    <parameter name="message" value="Hello dear colleags from Automatin Excercise. \n I contact you becase my order is lost\n Help Me!"/>
+    <parameter name="filepath" value="C:\\Users\\eleus\\eclipse-workspace\\automation-framework\\src\\main\\resources\\OrderLostEvicences.txt"/>
+    <parameter name="expectedSuccessMsg" value="Success! Your details have been submitted successfully."/>
+    <classes>
+      	<class name="tests.testContactus.TestContactus"/>
+    </classes>
+  </test>
+</suite>

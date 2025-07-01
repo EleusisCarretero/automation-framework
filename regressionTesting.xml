@@ -1,0 +1,35 @@
+<suite name="Suite">
+	
+	<test name="Regression">
+	<parameter name="url" value="https://automationexercise.com/"/>
+    <parameter name="loginurl" value="login"/>
+    <parameter name="signupurl" value="signup"/>
+    <parameter name="accurl" value="account_created"/>
+    <parameter name="acdurl" value="delete_account"/>
+    <parameter name="email" value="validuser@valid.com"/>
+    <parameter name="password" value="123UnoDosTres"/>
+    <parameter name="user" value="ValudUser"/>
+    <parameter name="newuser" value="novatonew"/>
+    
+    <parameter name="contactus" value="contact_us"/>
+    <parameter name="name" value="pedro Sanchez"/>
+    <parameter name="email" value="validuser@valid.com"/>
+    <parameter name="subject" value="Order lost"/>
+    <parameter name="message" value="Hello dear colleags from Automatin Excercise. \n I contact you becase my order is lost\n Help Me!"/>
+    <parameter name="filepath" value="C:\\Users\\eleus\\eclipse-workspace\\automation-framework\\src\\main\\resources\\OrderLostEvicences.txt"/>
+    <parameter name="expectedSuccessMsg" value="Success! Your details have been submitted successfully."/>
+    
+    <parameter name="productsurl" value="products"/>
+    <parameter name="singleproducturl" value="product_details/"/>
+    <parameter name="expectedTiltle" value="ALL PRODUCTS"/>
+	    <groups>
+	      <run>
+	        <include name="regression"/>
+	      </run>
+	    </groups>
+	    <packages>
+      		<package name="tests.*"/>
+    	</packages>
+	  </test>
+  
+</suite>
