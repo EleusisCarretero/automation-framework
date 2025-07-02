@@ -78,6 +78,17 @@
 	                <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
 	            </configuration>
 	        </plugin>
+	        
+	        <!-- Maven Compiler Plugin -->
+		    <plugin>
+		      <groupId>org.apache.maven.plugins</groupId>
+		      <artifactId>maven-compiler-plugin</artifactId>
+		      <version>3.8.1</version>
+		      <configuration>
+		        <source>17</source>
+		        <target>17</target>
+		      </configuration>
+		    </plugin>
 	
 	        <!-- Plugin de Surefire (para ejecutar tests TestNG) -->
 	        <plugin>
@@ -85,6 +96,7 @@
 	            <artifactId>maven-surefire-plugin</artifactId>
 	            <version>3.5.1</version>
 	            <configuration>
+		      
 	                <argLine>
 	                    -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/1.9.7/aspectjweaver-1.9.7.jar"
 	                </argLine>
@@ -93,8 +105,7 @@
 					      <suiteXmlFile>testLogin.xml</suiteXmlFile> <!-- o usa src/test/resources/testLogin.xml si lo tienes allí -->
 					      <suiteXmlFile>regressionTesting.xml</suiteXmlFile> <!-- o usa src/test/resources/testLogin.xml si lo tienes allí -->
 					 </suiteXmlFiles>
-					  	<source>17</source>
-						<target>17</target>
+					  	
 	            </configuration>
 	            <dependencies>
 	                <dependency>
