@@ -45,7 +45,7 @@ public class Button extends Element {
 		_commonClick();
 		this.actions.clickAndHold().perform();
 		try {
-			Thread.sleep(Duration.ofSeconds(holdTime));
+			Thread.sleep(Duration.ofSeconds(holdTime).toSeconds());
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -56,7 +56,7 @@ public class Button extends Element {
 		_commonClick();
 		this.actions.clickAndHold().perform();
 		try {
-			Thread.sleep(Duration.ofMillis(holdTime));
+			 Thread.sleep(Duration.ofSeconds(holdTime).toMillis());
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

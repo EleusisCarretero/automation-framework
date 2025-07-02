@@ -29,7 +29,7 @@ public class PreliminarProductView extends Element {
 			this.addcartBtn = this.element.findElement(By.xpath(addcartXpath));
 			this.viewProductBtn = this.element.findElement(By.xpath(viewProductXpath));
 		} catch (NoSuchElementException e) {
-			System.out.println("Uno de los elementos no se encontró en el producto: " + e.getMessage());
+			LOGGER.severe("Uno de los elementos no se encontró en el producto: " + e.getMessage());
 		}
 	}
 

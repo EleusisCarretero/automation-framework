@@ -118,7 +118,7 @@ public class ApiConnecter {
 			String[]parts = field.split("\\.");
 			JSONObject current = results;
 			for (int i = 0; i < parts.length - 1; i++) {
-                current = current.getJSONObject(parts[i]);  // baja en la jerarquía
+                current = current.getJSONObject(parts[i]);  // baja en a jerarquía
             }
 			try {
 			String key = parts[parts.length - 1];
