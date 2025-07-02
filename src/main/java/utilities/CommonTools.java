@@ -21,7 +21,7 @@ public class CommonTools {
 		// 2. clikc on the coordinates
 		//robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
 		this.robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-		Thread.sleep(Duration.ofSeconds(1));
+		Thread.sleep(Duration.ofSeconds(1).toMillis());
 		// 3. Release on the coordinates
 		this.robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
 	}
