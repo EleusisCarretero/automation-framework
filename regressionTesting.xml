@@ -2,7 +2,7 @@
 	
 	<test name="Regression">
 	<parameter name="browser" value="Edge"/>
-	<parameter name="args" value="['--no-sandbox', '--headless', '--disable-dev-shm-usage', '--disable-gpu', '--remote-allow-origins=*', '--crash-dumps-dir=/tmp']"/>
+	<parameter name="args" value="['--headless', '--no-sandbox', '--disable-dev-shm-usage', '--disable-gpu', '--remote-allow-origins=*']"/>
 	<parameter name="url" value="https://automationexercise.com/"/>
     <parameter name="loginurl" value="login"/>
     <parameter name="signupurl" value="signup"/>
