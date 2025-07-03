@@ -1,7 +1,7 @@
 <suite name="Suite">
   <test name="TestLoginOnly">
   	<parameter name="browser" value="Chrome"/>
-	<parameter name="args" value="['--headless=new', '--no-sandbox', '--disable-dev-shm-usage', '--disable-gpu', '--remote-allow-origins=*']"/>
+	<parameter name="args" value="['--headless', '--no-sandbox', '--disable-dev-shm-usage', '--disable-gpu', '--remote-allow-origins=*']"/>
   	<parameter name="url" value="https://automationexercise.com/"/>
     <parameter name="loginurl" value="login"/>
     <parameter name="signupurl" value="signup"/>
