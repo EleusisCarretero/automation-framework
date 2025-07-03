@@ -12,6 +12,8 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.testng.annotations.AfterMethod;
 
 import com.google.common.reflect.TypeToken;
@@ -42,16 +44,23 @@ public class BaseTest {
 	protected void initBrowser(String typeBrowser, String args) {
 		@SuppressWarnings("serial")
 		List<String> argsList = new Gson().fromJson(args, new TypeToken<List<String>>(){}.getType());
+		LOGGER.info("actual config arguments give: " + argsList);
 		switch(typeBrowser) {
 		case "Chrome":
-			ChromeOptions options = new ChromeOptions();
-			options.addArguments(argsList);
-			this.driver = new ChromeDriver(options);
+			ChromeOptions chromeOptions = new ChromeOptions();
+			chromeOptions.addArguments(argsList);
+			this.driver = new ChromeDriver(chromeOptions);
 			break;
+		case "Edge":
+			EdgeOptions edgeOptions = new EdgeOptions();
+			edgeOptions.addArguments(argsList);
+			this.driver = new EdgeDriver(edgeOptions);
+			
 		default:
 			LOGGER.severe(typeBrowser + "is not supported");
 			break;
 		}
+		LOGGER.info(typeBrowser + " driver has been set");
 		
 	}
 	
