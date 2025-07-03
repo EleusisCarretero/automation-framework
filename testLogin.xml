@@ -1,6 +1,6 @@
 <suite name="Suite">
   <test name="TestLoginOnly">
-	<parameter name="browser" value="Chrome"/>
+	<parameter name="browser" value="Edge"/>
 	<parameter name="args" value="['--headless', '--no-sandbox', '--disable-dev-shm-usage', '--disable-gpu', '--remote-allow-origins=*']"/>
   	<parameter name="url" value="https://automationexercise.com/"/>
     <parameter name="loginurl" value="login"/>
