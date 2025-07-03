@@ -1,5 +1,7 @@
 <suite name="Suite">
   <test name="TestLoginOnly">
+  	<parameter name="browser" value="Chrome"/>
+	<parameter name="args" value="['--headless', '--disable-dev-shm-usage']"/>
   	<parameter name="url" value="https://automationexercise.com/"/>
     <parameter name="contactus" value="contact_us"/>
     <parameter name="name" value="pedro Sanchez"/>
