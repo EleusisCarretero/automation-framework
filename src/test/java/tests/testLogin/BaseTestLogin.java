@@ -27,9 +27,9 @@ public class BaseTestLogin extends BaseTest {
 	DeleteAccountPage deletaepage;
 	
 	@BeforeMethod(alwaysRun = true)
-	@Parameters({"url", "loginurl", "signupurl", "accurl", "acdurl"})
-	void setup(String url, String loginurl, String signupurl, String accurl, String acdurl) throws Exception {
-		this.driver = new ChromeDriver();
+	@Parameters({"browser", "args", "url", "loginurl", "signupurl", "accurl", "acdurl"})
+	void setup(String browser, String args, String url, String loginurl, String signupurl, String accurl, String acdurl) throws Exception {
+		initBrowser(browser, args);
 		this.loginpage = new LoginPage(this.driver, url + loginurl);
 		this.siguppage = new SigupPage(this.driver, url + signupurl);
 		this.accpage = new AccountCreatedPage(this.driver,url + accurl);

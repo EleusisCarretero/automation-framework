@@ -28,10 +28,10 @@ public class BaseTestProduct extends BaseTest {
 		this.expectedTiltle = expectedTiltle;
 	}
 	
-	@Parameters({"url", "productsurl", "singleproducturl"})
+	@Parameters({"browser", "args", "url", "productsurl", "singleproducturl"})
 	@BeforeMethod(alwaysRun = true)
-	void setup(String url, String productsurl, String singleproducturl) throws Exception {
-		this.driver = new ChromeDriver();
+	void setup(String browser, String args, String url, String productsurl, String singleproducturl) throws Exception {
+		initBrowser(browser, args);
 		this.mainpage = new MainPage(this.driver, url);
 		this.productpage = new ProductsPage(this.driver, url + productsurl);
 		this.productdetailpage = new ProductDetailPage(this.driver, url + singleproducturl);

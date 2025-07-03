@@ -10,7 +10,12 @@ import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
+
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 
 import io.qameta.allure.Step;
 import pages.BasePage;
@@ -32,6 +37,23 @@ public class BaseTest {
 	public WebDriver driver;
 	private BasePage page;
 	protected AssertManager assertManager;
+	
+	
+	protected void initBrowser(String typeBrowser, String args) {
+		@SuppressWarnings("serial")
+		List<String> argsList = new Gson().fromJson(args, new TypeToken<List<String>>(){}.getType());
+		switch(typeBrowser) {
+		case "Chrome":
+			ChromeOptions options = new ChromeOptions();
+			options.addArguments(argsList);
+			this.driver = new ChromeDriver(options);
+			break;
+		default:
+			LOGGER.severe(typeBrowser + "is not supported");
+			break;
+		}
+		
+	}
 	
 	protected boolean setup(BasePage page) {
 		this.page = page;

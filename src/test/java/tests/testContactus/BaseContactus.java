@@ -20,10 +20,10 @@ public class BaseContactus extends BaseTest {
 	ContactusPage contactpage;
 	
 	
-	@Parameters({"url", "contactus"})
+	@Parameters({"browser", "args", "url", "contactus"})
 	@BeforeMethod(alwaysRun = true)
-	void setup(String url, String contactus) throws Exception {
-		this.driver = new ChromeDriver();
+	void setup(String browser, String args, String url, String contactus) throws Exception {
+		initBrowser(browser, args);
 		this.mainpage = new MainPage(this.driver, url);
 		this.contactpage =  new ContactusPage(this.driver, url + contactus);
 		boolean isLaunched = super.setup(contactpage);
